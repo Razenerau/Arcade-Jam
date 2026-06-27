@@ -70,6 +70,11 @@ public class BulletController : MonoBehaviour {
 
     // Triggered when the bullet collides with another 2D collider set to trigger
     private void OnTriggerEnter2D(Collider2D collision) {
+
+        if(collision.gameObject.tag == "Block")
+        {
+            Destroy(collision.gameObject);
+        }
         // Destroy the bullet immediately upon impact
         Destroy(gameObject);
     }
