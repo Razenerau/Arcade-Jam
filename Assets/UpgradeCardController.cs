@@ -17,5 +17,6 @@ public class UpgradeCardController : MonoBehaviour
         UpgradesController.Instance.ChooseUpgrade(Upgrades, IsPlayerOne);
         GameState.Instance.gameState = GameState.GameStateEnum.InMatch;
         ReadyView.Instance.CloseUpgrades();
+        SoundManager.Instance.PlayBattle();
     }
 }

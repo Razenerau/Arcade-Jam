@@ -71,6 +71,8 @@ public class GameState : MonoBehaviour
 
         PlayerOneSpawn = PlayerOne.transform.position;
         PlayerTwoSpawn = PlayerTwo.transform.position;
+
+        SoundManager.Instance.PlayTitle();
     }
 
     // Update is called once per frame
@@ -81,19 +83,27 @@ public class GameState : MonoBehaviour
             
             // Check if both players are flagged as ready to begin gameplay
             case GameStateEnum.GetReady: {
+
+                    
+
                 if (_playerOneReady && _playerTwoReady) {
                     // Transition to active match state
                     gameState = GameStateEnum.InMatch;
-                    
-                    // Notify the UI to hide lobby options and display game elements
-                    _readyView.SetInMatch();
+
+                        SoundManager.Instance.PlayBattle();
+
+                        // Notify the UI to hide lobby options and display game elements
+                        _readyView.SetInMatch();
                 }
                 break;
             }
             
             // Monitor player health values to determine match termination conditions
             case GameStateEnum.InMatch: {
-                if (playerOneHealth <= 0 || playerTwoHealth <= 0) {
+
+                    
+
+                    if (playerOneHealth <= 0 || playerTwoHealth <= 0) {
                     // Transition to end match state
                     gameState = GameStateEnum.GameOver;
                     
@@ -103,13 +113,14 @@ public class GameState : MonoBehaviour
                 break;
             }
             case GameStateEnum.GameOver:
-            break; 
+                
+                break; 
             default:
                 throw new ArgumentOutOfRangeException();
 
             case GameStateEnum.Upgrades:
                 {
-
+                  
                     break;
                 }
         }
@@ -126,13 +137,19 @@ public class GameState : MonoBehaviour
             case "1": {
                 playerOneHealth--;
                 _readyView.UpdatePlayerHealth(player, playerOneHealth);
-                ReadyView.Instance.SetUpgades(true);
+
+                    if (playerOneHealth <= 0) return;
+
+                    ReadyView.Instance.SetUpgades(true);
                     PlayerTwo.transform.position = PlayerTwoSpawn;
                     break;
             }
             case "2": {
                 playerTwoHealth--;
                 _readyView.UpdatePlayerHealth(player, playerTwoHealth);
+
+                    if (playerTwoHealth <= 0) return;
+
                     ReadyView.Instance.SetUpgades(false);
                     PlayerOne.transform.position = PlayerOneSpawn;
                     break;

@@ -74,13 +74,13 @@ public class BulletController : MonoBehaviour {
         // Apply constant velocity to the Rigidbody based on direction and speed
         _rigidbody2D.velocity = _direction * speed;
 
-        Vector2 v = _rigidbody2D.velocity;
-        
-        if (v.sqrMagnitude > 0.001f) // prevents jitter when nearly stopped
-        {
-            float angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
-            SpriteRenderer.gameObject.transform.rotation = Quaternion.Euler(0, angle, 0);
-        }
+        //Vector2 v = _rigidbody2D.velocity;
+        //
+        //if (v.sqrMagnitude > 0.001f) // prevents jitter when nearly stopped
+        //{
+        //    float angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+        //    SpriteRenderer.gameObject.transform.rotation = Quaternion.Euler(0, angle, 0);
+        //}
     }
 
      //Triggered when the bullet collides with another 2D collider set to trigger

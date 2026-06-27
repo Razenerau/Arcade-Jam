@@ -81,13 +81,21 @@ public class PlayerActions : MonoBehaviour {
                         // Reset the cooldown timer and lock shooting
                         currentTime = spawnInterval;
                     _canShoot = false;
-                    
-                    // Locate the weapon position to use as the spawn point location
-                    Transform spawnPoint = _playerWeapon.weapon.transform;
+
+                        float horizontal = Input.GetAxisRaw(GameState.Instance.horizontalAxis + _playerActions.playerCount);
+                        float vertical = Input.GetAxisRaw(GameState.Instance.verticalAxis + _playerActions.playerCount);
+
+                        Vector2 Direction = new Vector2(horizontal, vertical).normalized;
+
+
+                        // Locate the weapon position to use as the spawn point location
+                        Transform spawnPoint = _playerWeapon.weapon.transform;
                     
                     // Instantiate the projectile at the weapon's position and rotation
-                    GameObject bullet = Instantiate(xObject, spawnPoint.position, spawnPoint.rotation);
-                    
+                    GameObject bullet = Instantiate(xObject, spawnPoint.position, Quaternion.Euler(0f, 0f, Mathf.Atan2(Direction.y, Direction.x) * Mathf.Rad2Deg));
+
+                      
+
                     // Color the projectile's child sprite component to match the designated player color
                     bullet.transform.Find("Sprite").GetComponent<SpriteRenderer>().color = bulletColor;
                     
@@ -106,11 +114,7 @@ public class PlayerActions : MonoBehaviour {
                             // Add SFX
                         }
 
-                        float horizontal = Input.GetAxisRaw(GameState.Instance.horizontalAxis + _playerActions.playerCount);
-                    float vertical = Input.GetAxisRaw(GameState.Instance.verticalAxis + _playerActions.playerCount);
-
-                    Vector2 Direction = new Vector2(horizontal, vertical).normalized;
-
+                        
                     if(Direction != Vector2.zero)
                     {
                         // Pass the current aiming direction from the PlayerWeapon script to the projectile

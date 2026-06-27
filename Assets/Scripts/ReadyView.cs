@@ -32,7 +32,10 @@ public class ReadyView : MonoBehaviour {
     
     // Visual indicator color applied to panels when a player becomes ready
     public Color backgroundColor = Color.green;
-    
+
+    public GameObject PlayerOneWin;
+    public GameObject PlayerTwoWin;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -57,12 +60,12 @@ public class ReadyView : MonoBehaviour {
         switch (player) {
             case "1": {
                 backgroundPlayerOne.color = backgroundColor;
-                readyTextMeshProPlayerOne.text = "Player 1 ready!";
+                //readyTextMeshProPlayerOne.text = "Player 1 ready!";
                 break;   
             }
             case "2":{
                 backgroundPlayerTwo.color = backgroundColor;
-                readyTextMeshProPlayerTwo.text = "Player 2 ready!";
+                //readyTextMeshProPlayerTwo.text = "Player 2 ready!";
                 break;   
             }
         }
@@ -77,8 +80,23 @@ public class ReadyView : MonoBehaviour {
     // Displays the post-game summary panel and announces the winning player
     public void SetInGameOver(string player) {
         startScreen.SetActive(false);
-        gameOverScreen.SetActive(true);
-        playerWins.text = "Player " + player + " wins!";
+        //gameOverScreen.SetActive(true);
+        //playerWins.text = "Player " + player + " wins!";
+        SoundManager.Instance.PlayWin();
+
+        switch (player)
+        {
+            case "1":
+                {
+                    PlayerOneWin.SetActive(true);
+                    break;
+                }
+            case "2":
+                {
+                    PlayerTwoWin.SetActive(true);
+                    break;
+                }
+        }
     }
 
     // Refreshes the on-screen health point value for the specified player
@@ -97,7 +115,9 @@ public class ReadyView : MonoBehaviour {
 
     public void SetUpgades(bool isPlayerOne)
     {
-        if(isPlayerOne)
+        SoundManager.Instance.PlayTitle();
+
+        if (isPlayerOne)
         {
             UpgradesScreenOne.SetActive(true);
         }

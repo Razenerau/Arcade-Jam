@@ -93,6 +93,7 @@ MonoBehaviour:
   bulletSpeed: 5
   bulletSize: 1
   currentTime: 0
+  Animator: {fileID: 0}
 --- !u!114 &5761915463337607820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +115,7 @@ MonoBehaviour:
   _groundCheck: 0
   jumpForce: 7
   fallForce: 2
+  Animator: {fileID: 0}
 --- !u!114 &1948045616662774038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,8 +181,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.18}
-  m_Size: {x: 0.89, y: 1.24}
+  m_Offset: {x: 0, y: 0.8274379}
+  m_Size: {x: 0.89, y: 2.6268964}
   m_Direction: 0
 --- !u!1 &826931285600058719
 GameObject:
@@ -404,7 +406,7 @@ Transform:
   m_GameObject: {fileID: 3965222872884751551}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1077, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1.2153, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -451,7 +453,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 1813353806, guid: f8966251f4aa5a842a65f28e07b9929f, type: 3}
   m_Color: {r: 0.4764151, g: 1, b: 0.5500729, a: 1}
   m_FlipX: 0
   m_FlipY: 0
