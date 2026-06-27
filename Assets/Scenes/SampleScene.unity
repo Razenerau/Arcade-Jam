@@ -1555,6 +1555,10 @@ PrefabInstance:
       value: 1.875
       objectReference: {fileID: 0}
     - target: {fileID: 5761915463337607820, guid: 7ac9264d82428ee40b3bd3e1da6bab53, type: 3}
+      propertyPath: Animator
+      value: 
+      objectReference: {fileID: 769587262}
+    - target: {fileID: 5761915463337607820, guid: 7ac9264d82428ee40b3bd3e1da6bab53, type: 3}
       propertyPath: jumpButton
       value: Jump_2
       objectReference: {fileID: 0}
@@ -1642,6 +1646,10 @@ PrefabInstance:
       propertyPath: xObject
       value: 
       objectReference: {fileID: 1152007818261404469, guid: 2913860d8b34fb04e95a7f1c8a2e857c, type: 3}
+    - target: {fileID: 8433664199821009620, guid: 7ac9264d82428ee40b3bd3e1da6bab53, type: 3}
+      propertyPath: Animator
+      value: 
+      objectReference: {fileID: 769587262}
     - target: {fileID: 8433664199821009620, guid: 7ac9264d82428ee40b3bd3e1da6bab53, type: 3}
       propertyPath: actionLB
       value: Action_LB_2
