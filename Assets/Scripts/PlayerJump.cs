@@ -19,7 +19,7 @@ public class PlayerJump : MonoBehaviour
     public LayerMask groundMask;
     
     // Boolean tracking whether the player is currently grounded
-    private bool _groundCheck;
+    public bool _groundCheck;
 
     // Upward force applied when the player jumps
     public float jumpForce = 10;
@@ -41,25 +41,36 @@ public class PlayerJump : MonoBehaviour
     }
 
     // Update is called once per frame
-   private void Update() {
+   private void FixedUpdate() {
        // Only allow jumping mechanics if the game is currently in a match
        if (GameState.Instance.gameState != GameState.GameStateEnum.InMatch) return;
        
        // Checks if player is touching ground using a horizontal capsule overlap shape
-       _groundCheck = Physics2D.OverlapCapsule(feetCollider.position, 
-           new Vector2(capsuleHeight, capsuleRadius), CapsuleDirection2D.Horizontal,
-           0, groundMask);
+       //_groundCheck = Physics2D.OverlapCapsule(feetCollider.position, 
+       //    new Vector2(capsuleHeight, capsuleRadius), CapsuleDirection2D.Horizontal,
+       //    0, groundMask);
 
        // Checks if player is trying to jump/can jump based on user input and ground status
-       if (Input.GetButtonDown(GameState.Instance.jumpButton + _playerActions.playerCount) && _groundCheck) {
+       if (Input.GetButton(GameState.Instance.jumpButton + _playerActions.playerCount) && _groundCheck) {
            // Set upward velocity while maintaining the current horizontal velocity
            _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, jumpForce);
+            _groundCheck = false;
        }
 
-       // Checks if the gravity should be getting faster (applies extra downward force when falling)
-       if(_rigidbody2D.velocity.y < 0) {
+        if (!Input.GetButton(GameState.Instance.jumpButton + _playerActions.playerCount) && _rigidbody2D.velocity.y > 0 && !_groundCheck)
+        {
+             _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0f);
+        }
+
+
+        // Checks if the gravity should be getting faster (applies extra downward force when falling)
+        if (_rigidbody2D.velocity.y < 0) {
            // Increase falling speed smoothly over time using deltaTime
            _rigidbody2D.velocity += _gravityVector * (fallForce * Time.deltaTime);
        }
    }
+
+    
+
+    
 }

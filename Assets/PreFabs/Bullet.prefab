@@ -109,6 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22d5dc107afa764faf41940b30160ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delayBeforeShrink: 1
+  shrinkDuration: 0.5
+  speed: 5
 --- !u!1 &4082393491137635609
 GameObject:
   m_ObjectHideFlags: 0

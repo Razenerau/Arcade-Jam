@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerWeapon : MonoBehaviour {
-    
+    public Rigidbody2D Rigidbody2D;
     // Reference to the weapon GameObject that moves around the player
     public GameObject weapon;
 
@@ -66,5 +66,12 @@ public class PlayerWeapon : MonoBehaviour {
                 break;   
             }
         }
+    }
+
+    public void Shoot()
+    {
+        Vector2 playerVelocity = Rigidbody2D.velocity;
+        Vector2 normal = playerVelocity.normalized;
+
     }
 }

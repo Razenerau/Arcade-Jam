@@ -17,7 +17,9 @@ public class PlayerActions : MonoBehaviour {
     
     // Reference to the PlayerWeapon component to fetch aiming direction and spawn point
     private PlayerWeapon _playerWeapon;
-    
+
+    private PlayerActions _playerActions;
+
     // The bullet/projectile prefab to instantiate when shooting
     public GameObject xObject;
     
@@ -45,6 +47,7 @@ public class PlayerActions : MonoBehaviour {
         // Cache the Rigidbody2D and PlayerWeapon components attached to this GameObject
         _rigidbody = GetComponent<Rigidbody2D>();
         _playerWeapon = GetComponent<PlayerWeapon>();
+        _playerActions = GetComponent<PlayerActions>();
     }
 
     // Update is called once per frame
@@ -77,16 +80,29 @@ public class PlayerActions : MonoBehaviour {
                     Transform spawnPoint = _playerWeapon.weapon.transform;
                     
                     // Instantiate the projectile at the weapon's position and rotation
-                    GameObject newObject = Instantiate(xObject, spawnPoint.position, spawnPoint.rotation);
+                    GameObject bullet = Instantiate(xObject, spawnPoint.position, spawnPoint.rotation);
                     
                     // Color the projectile's child sprite component to match the designated player color
-                    newObject.transform.Find("Sprite").GetComponent<SpriteRenderer>().color = bulletColor;
+                    bullet.transform.Find("Sprite").GetComponent<SpriteRenderer>().color = bulletColor;
                     
                     // Configure the projectile's 2D Rigidbody layer exclusions
-                    newObject.GetComponent<Rigidbody2D>().excludeLayers = layersToExclude;
-                    
-                    // Pass the current aiming direction from the PlayerWeapon script to the projectile
-                    newObject.GetComponent<BulletController>().SetDirection(_playerWeapon.direction);
+                    bullet.GetComponent<Rigidbody2D>().excludeLayers = layersToExclude;
+
+                    float horizontal = Input.GetAxisRaw(GameState.Instance.horizontalAxis + _playerActions.playerCount);
+                    float vertical = Input.GetAxisRaw(GameState.Instance.verticalAxis + _playerActions.playerCount);
+
+                    Vector2 Direction = new Vector2(horizontal, vertical).normalized;
+
+                    if(Direction != Vector2.zero)
+                    {
+                        // Pass the current aiming direction from the PlayerWeapon script to the projectile
+                        bullet.GetComponent<BulletController>().SetDirection(Direction);
+                    }
+                    else
+                    {
+                        bullet.GetComponent<BulletController>().SetDirection(_playerWeapon.direction);
+                    }
+                   
                 }
 
                 // Debug tracking for secondary interaction buttons (B, Y, RB, LB)
