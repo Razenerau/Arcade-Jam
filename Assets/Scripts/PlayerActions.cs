@@ -39,6 +39,8 @@ public class PlayerActions : MonoBehaviour {
     
     // Flag checking if the weapon is off cooldown and ready to fire
     private bool _canShoot = true;
+
+    public Animator Animator;
     
     // Start is called before the first frame update
     private void Start()
@@ -73,9 +75,11 @@ public class PlayerActions : MonoBehaviour {
                 if (Input.GetButtonDown(GameState.Instance.actionX + playerCount)) {
                     // Prevent shooting if the weapon is still cooling down
                     if (!_canShoot) return;
-                    
-                    // Reset the cooldown timer and lock shooting
-                    currentTime = spawnInterval;
+
+                        if (Animator != null) Animator.SetTrigger("Shoot");
+
+                        // Reset the cooldown timer and lock shooting
+                        currentTime = spawnInterval;
                     _canShoot = false;
                     
                     // Locate the weapon position to use as the spawn point location

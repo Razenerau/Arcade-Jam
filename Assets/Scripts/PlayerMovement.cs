@@ -32,9 +32,13 @@ public class PlayerMovement : MonoBehaviour {
         {
             SR.flipX = false;
         }
-        else
+        else if (horizontal > 0) 
         {
             SR.flipX = true;
+        }
+        else
+        {
+            SR.flipX = SR.flipX;
         }
             
         // Apply horizontal velocity while preserving the current vertical velocity

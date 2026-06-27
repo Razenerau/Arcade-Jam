@@ -90,6 +90,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   spawnInterval: 2
+  bulletSpeed: 5
+  bulletSize: 1
   currentTime: 0
 --- !u!114 &5761915463337607820
 MonoBehaviour:
@@ -125,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  SR: {fileID: 3047133858022305979}
 --- !u!114 &7519282410973480494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da825c553d8a314bb68cdaa3ac499cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Rigidbody2D: {fileID: 0}
   weapon: {fileID: 826931285600058719}
   positionRight: {fileID: 846280582923522057}
   positionLeft: {fileID: 8169374059437471101}

@@ -29,6 +29,8 @@ public class PlayerJump : MonoBehaviour
     
     // Cached global gravity vector scaled to the project physics settings
     private Vector2 _gravityVector;
+
+    public Animator Animator;
     
     // Sets gravity vector and connects components 
     private void Start() {
@@ -40,8 +42,15 @@ public class PlayerJump : MonoBehaviour
         _playerActions = GetComponent<PlayerActions>();
     }
 
+    private void Update()
+    {
+        if (Animator == null) return;
+        Animator.SetBool("isGrounded", _groundCheck);
+        Animator.SetFloat("velocity", Mathf.Abs(_rigidbody2D.velocity.x));
+    }
+
     // Update is called once per frame
-   private void FixedUpdate() {
+    private void FixedUpdate() {
        // Only allow jumping mechanics if the game is currently in a match
        if (GameState.Instance.gameState != GameState.GameStateEnum.InMatch) return;
        
@@ -55,6 +64,7 @@ public class PlayerJump : MonoBehaviour
            // Set upward velocity while maintaining the current horizontal velocity
            _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, jumpForce);
             _groundCheck = false;
+            
        }
 
         if (!Input.GetButton(GameState.Instance.jumpButton + _playerActions.playerCount) && _rigidbody2D.velocity.y > 0 && !_groundCheck)
