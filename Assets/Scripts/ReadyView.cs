@@ -5,11 +5,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ReadyView : MonoBehaviour {
-    
+
+    public static ReadyView Instance;
+
     // UI Panels for different game states
     public GameObject startScreen;
     public GameObject inMatchScreen;
     public GameObject gameOverScreen;
+    public GameObject UpgradesScreenOne;
+    public GameObject UpgradesScreenTwo;
     
     // UI elements for Player 1 lobby status
     public Image backgroundPlayerOne;
@@ -32,6 +36,16 @@ public class ReadyView : MonoBehaviour {
     // Start is called before the first frame update
     private void Start()
     {
+        // Enforce the Singleton pattern to prevent duplicate GameState instances
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        // Establish this object as the persistent global instance
+        Instance = this;
+
         // Enforce correct UI panel visibility at initial match launch
         startScreen.SetActive(true);
         inMatchScreen.SetActive(false);
@@ -79,5 +93,25 @@ public class ReadyView : MonoBehaviour {
                 break;   
             }
         }
+    }
+
+    public void SetUpgades(bool isPlayerOne)
+    {
+        if(isPlayerOne)
+        {
+            UpgradesScreenOne.SetActive(true);
+        }
+        else
+        {
+            UpgradesScreenTwo.SetActive(true);
+        }
+        
+    }
+
+    public void CloseUpgrades()
+    {
+        UpgradesScreenOne.SetActive(false);
+        UpgradesScreenTwo.SetActive(false);
+
     }
 }

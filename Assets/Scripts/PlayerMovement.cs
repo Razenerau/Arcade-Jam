@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour {
     
     // Reference to the player actions script to determine player index/ID
     private PlayerActions _playerActions;
+
+    public SpriteRenderer SR;
     
     // Start is called before the first frame update
     private void Start() {
@@ -25,6 +27,15 @@ public class PlayerMovement : MonoBehaviour {
         
         // Get horizontal input value (-1, 0, or 1) using the player's specific control axis
         float horizontal = Input.GetAxisRaw(GameState.Instance.horizontalAxis + _playerActions.playerCount);
+
+        if (horizontal < 0)
+        {
+            SR.flipX = false;
+        }
+        else
+        {
+            SR.flipX = true;
+        }
             
         // Apply horizontal velocity while preserving the current vertical velocity
         _rigidbody2D.velocity = new Vector2(horizontal * speed, _rigidbody2D.velocity.y);

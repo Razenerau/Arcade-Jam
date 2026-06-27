@@ -16,8 +16,15 @@ public class BulletController : MonoBehaviour {
     public float shrinkDuration = 1f;
 
     // Movement speed of the bullet
-    public int speed = 5;
-    
+    public float speed = 5f;
+
+    public int MaxBounceCount = 2;
+    public int CurrentBounceCount = 0;
+    public SpriteRenderer SpriteRenderer;
+
+    public Sprite SpriteOne;
+    public Sprite SpriteTwo;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -66,16 +73,51 @@ public class BulletController : MonoBehaviour {
     private void Update() {
         // Apply constant velocity to the Rigidbody based on direction and speed
         _rigidbody2D.velocity = _direction * speed;
+
+        //Vector2 v = _rigidbody2D.velocity;
+        //
+        //if (v.sqrMagnitude > 0.001f) // prevents jitter when nearly stopped
+        //{
+        //    float angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+        //    SpriteRenderer.gameObject.transform.rotation = Quaternion.Euler(0, angle, 0);
+        //}
     }
 
-    // Triggered when the bullet collides with another 2D collider set to trigger
+     //Triggered when the bullet collides with another 2D collider set to trigger
     private void OnTriggerEnter2D(Collider2D collision) {
 
-        if(collision.gameObject.tag == "Block")
-        {
+        
+        
+            // Destroy the bullet immediately upon impact
+            Destroy(gameObject);
             Destroy(collision.gameObject);
-        }
-        // Destroy the bullet immediately upon impact
-        Destroy(gameObject);
+        
+
+        
     }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Block"))
+    //    {
+    //        if (CurrentBounceCount < MaxBounceCount)
+    //        {
+    //            // Get the first contact point
+    //            ContactPoint2D contact = collision.GetContact(0);
+    //
+    //            // Normal of the surface at the hit point
+    //            Vector2 normal = contact.normal;
+    //
+    //            // Reflect the velocity over the normal
+    //            _rigidbody2D.velocity = Vector2.Reflect(_rigidbody2D.velocity, normal);
+    //
+    //            CurrentBounceCount++;
+    //            return; // Don't destroy the bullet yet
+    //        }
+    //
+    //        // If out of bounces, destroy the block and the bullet
+    //        Destroy(collision.gameObject);
+    //        Destroy(gameObject);
+    //    }
+    //}
 }

@@ -31,6 +31,8 @@ public class PlayerActions : MonoBehaviour {
     
     // Cooldown duration between weapon shots
     public float spawnInterval = 2f;
+    public float bulletSpeed = 5f;
+    public float bulletSize = 1f;
     
     // Tracks the remaining cooldown time before the player can shoot again
     public float currentTime = 0f;
@@ -87,8 +89,20 @@ public class PlayerActions : MonoBehaviour {
                     
                     // Configure the projectile's 2D Rigidbody layer exclusions
                     bullet.GetComponent<Rigidbody2D>().excludeLayers = layersToExclude;
+                    bullet.GetComponent<BulletController>().speed = bulletSpeed;
+                    bullet.transform.localScale = bullet.transform.localScale * bulletSize;
+                     if (playerCount == "1")
+                     {
+                            bullet.GetComponent<BulletController>().SpriteRenderer.sprite = bullet.GetComponent<BulletController>().SpriteOne;
+                            // Add SFX
+                     }
+                     else
+                        {
+                            bullet.GetComponent<BulletController>().SpriteRenderer.sprite = bullet.GetComponent<BulletController>().SpriteTwo;
+                            // Add SFX
+                        }
 
-                    float horizontal = Input.GetAxisRaw(GameState.Instance.horizontalAxis + _playerActions.playerCount);
+                        float horizontal = Input.GetAxisRaw(GameState.Instance.horizontalAxis + _playerActions.playerCount);
                     float vertical = Input.GetAxisRaw(GameState.Instance.verticalAxis + _playerActions.playerCount);
 
                     Vector2 Direction = new Vector2(horizontal, vertical).normalized;
@@ -141,6 +155,12 @@ public class PlayerActions : MonoBehaviour {
                 }
                 break;
             }
+
+            case GameState.GameStateEnum.Upgrades:
+                {
+
+                    break;
+                }
             default:
                 throw new ArgumentOutOfRangeException();
         }

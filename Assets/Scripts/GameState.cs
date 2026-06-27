@@ -15,10 +15,19 @@ public class GameState : MonoBehaviour
     private bool _playerOneReady = false;
     private bool _playerTwoReady = false;
 
+    public GameObject PlayerOne;
+    public GameObject PlayerTwo;
+
+    public Vector2 PlayerOneSpawn;
+    public Vector2 PlayerTwoSpawn;
+
     // Remaining health points for each player
-    public int playerOneHealth = 3;
-    public int playerTwoHealth = 3;
-    
+    public int playerOneHealth = 5;
+    public int playerTwoHealth = 5;
+
+    public bool isplayerOneDead = false;
+    public bool isplayerTwoDead = false;
+
     // Input axis and button string prefixes used to map multiplayer controls dynamically
     public string horizontalAxis = "Horizontal_";
     public string verticalAxis = "Vertical_";
@@ -34,6 +43,7 @@ public class GameState : MonoBehaviour
         GetReady,
         InMatch,
         GameOver,
+        Upgrades
     }
     
     // Current active state of the game session
@@ -58,6 +68,9 @@ public class GameState : MonoBehaviour
         
         // Cache the ReadyView component responsible for user interface updates
         _readyView = gameObject.GetComponent<ReadyView>();
+
+        PlayerOneSpawn = PlayerOne.transform.position;
+        PlayerTwoSpawn = PlayerTwo.transform.position;
     }
 
     // Update is called once per frame
@@ -93,23 +106,41 @@ public class GameState : MonoBehaviour
             break; 
             default:
                 throw new ArgumentOutOfRangeException();
+
+            case GameStateEnum.Upgrades:
+                {
+
+                    break;
+                }
         }
     }
 
     // Deducts life from the specified player and updates corresponding UI components
     public void TakeDamage(string player) {
+        gameState = GameStateEnum.Upgrades;
+
+        //respawn players
+        
+
         switch (player) {
             case "1": {
                 playerOneHealth--;
                 _readyView.UpdatePlayerHealth(player, playerOneHealth);
-                break;
+                ReadyView.Instance.SetUpgades(true);
+                    PlayerTwo.transform.position = PlayerTwoSpawn;
+                    break;
             }
             case "2": {
                 playerTwoHealth--;
                 _readyView.UpdatePlayerHealth(player, playerTwoHealth);
-                break;
+                    ReadyView.Instance.SetUpgades(false);
+                    PlayerOne.transform.position = PlayerOneSpawn;
+                    break;
             }
         }
+
+        
+        
     }
 
     // Commits the ready status flag for a player and triggers the corresponding visual state
